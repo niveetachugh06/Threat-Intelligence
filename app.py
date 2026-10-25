@@ -26,12 +26,23 @@ st.set_page_config(
 
 @st.cache_resource
 def load_cti_model():
-    if joblib is None or not MODEL_PATH.exists():
+    if joblib is None:
+        st.error("Missing package: joblib. Check requirements.txt.")
+        return None
+
+    if not MODEL_PATH.exists():
+        st.error(
+            f"Model file not found: {MODEL_PATH.name}. "
+            "Check its filename and repository location."
+        )
         return None
 
     try:
         return joblib.load(MODEL_PATH)
-    except Exception:
+    except Exception as exc:
+        st.error(
+            f"Model loading failed: {type(exc).__name__}: {exc}"
+        )
         return None
 
 

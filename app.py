@@ -1,4 +1,4 @@
-
+from cti_enrichment import lookup_cve
 import streamlit as st
 from cti_engine import analyze_threat
 
@@ -36,6 +36,44 @@ if st.button("🔍 Analyze Text", type="primary"):
     else:
         try:
             results = analyze_threat(text_input)
+
+            # Live NVD vulnerability enrichment
+            with st.expander(
+                " Live NVD Vulnerability Enrichment",
+                expanded=True
+            ):
+                cve_ids = results.get("cves", [])
+
+                if not cve_ids:
+                    st.info("No CVE identifiers were extracted.")
+                else:
+                    for cve_id in cve_ids[:5]:
+                        st.markdown(f"### {cve_id}")
+
+                        details = lookup_cve(cve_id)
+
+                        if details.get("error"):
+                            st.warning(details["error"])
+                        else:
+                            st.write(details["description"])
+
+                            col1, col2 = st.columns(2)
+
+                            col1.metric(
+                                "CVSS Score",
+                                details["cvss_score"]
+                                if details["cvss_score"] is not None
+                                else "N/A"
+                            )
+
+                            col2.metric(
+                                "Severity",
+                                details["severity"] or "N/A"
+                            )
+
+                            st.markdown(
+                                f"[View NVD record]({details['nvd_url']})"
+                            )
 
             st.success("Analysis completed.")
 

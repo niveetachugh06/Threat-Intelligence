@@ -53,67 +53,6 @@ if st.button("🔍 Analyze Text", type="primary"):
         try:
             results = analyze_threat(text_input)
 
-st.subheader("🧠 ML-Based CTI Relevance")
-
-cti_model = load_cti_model()
-
-if cti_model is not None:
-    sentences = [
-        sentence.strip()
-        for sentence in re.split(r"(?<=[.!?])\s+|\n+", text_input)
-        if len(sentence.strip()) >= 10
-    ]
-
-    if sentences:
-        try:
-            predictions = cti_model.predict(sentences)
-
-            relevant_sentences = [
-                sentence
-                for sentence, prediction in zip(sentences, predictions)
-                if str(prediction).lower() == "yes"
-            ]
-
-            non_relevant_sentences = [
-                sentence
-                for sentence, prediction in zip(sentences, predictions)
-                if str(prediction).lower() == "no"
-            ]
-
-            col1, col2 = st.columns(2)
-
-            with col1:
-                st.metric("CTI-relevant sentences", len(relevant_sentences))
-
-            with col2:
-                st.metric("Non-relevant sentences", len(non_relevant_sentences))
-
-            with st.expander("View CTI-relevant sentences"):
-                if relevant_sentences:
-                    for sentence in relevant_sentences:
-                        st.write(f"• {sentence}")
-                else:
-                    st.info("No sentences were classified as CTI-relevant.")
-
-            with st.expander("View non-relevant sentences"):
-                if non_relevant_sentences:
-                    for sentence in non_relevant_sentences:
-                        st.write(f"• {sentence}")
-                else:
-                    st.info("No sentences were classified as non-relevant.")
-
-            st.caption(
-                "Model: TF-IDF + Linear SVM trained on SMAH-CTI. "
-                "Predictions indicate CTI relevance, not whether a threat "
-                "or indicator is malicious. Review results before relying on them."
-            )
-
-        except Exception as exc:
-            st.warning(f"CTI relevance prediction failed: {exc}")
-    else:
-        st.info("Enter text containing at least one sentence to analyze.")
-else:
-    st.info("The CTI relevance model is unavailable. Other analysis can continue.")
             # Live NVD vulnerability enrichment
             with st.expander(
                 " Live NVD Vulnerability Enrichment",
@@ -225,10 +164,31 @@ else:
                 mime="text/plain"
             )
 
-        except ValueError as error:
-            st.error(str(error))
+              except ValueError as error:
+           st.error(str(error))
 
-st.divider()
-st.caption(
-    "CyberScope prototype | Research and educational use only"
-)
+       # ML-based CTI relevance analysis
+       cti_model = load_cti_model()
+
+       if cti_model is not None:
+           st.subheader("🧠 ML-Based CTI Relevance")
+
+           sentences = [
+               sentence.strip()
+               for sentence in re.split(
+                   r"(?<=[.!?])\s+|\n+",
+                   text_input
+               )
+               if len(sentence.strip()) >= 10
+           ]
+
+           if sentences:
+               predictions = cti_model.predict(sentences)
+
+               for sentence, prediction in zip(sentences, predictions):
+                   st.write(f"**Prediction: {prediction}** — {sentence}")
+
+       st.divider()
+       st.caption(
+           "CyberScope prototype | Research and educational use only"
+       )

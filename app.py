@@ -164,7 +164,7 @@ if st.button("🔍 Analyze Text", type="primary"):
                 mime="text/plain"
             )
 
-              except ValueError as error:
+        except ValueError as error:
            st.error(str(error))
 
        # ML-based CTI relevance analysis
@@ -188,7 +188,7 @@ if st.button("🔍 Analyze Text", type="primary"):
                for sentence, prediction in zip(sentences, predictions):
                    st.write(f"**Prediction: {prediction}** — {sentence}")
 
-       st.divider()
-       st.caption(
+ st.divider()
+ st.caption(
            "CyberScope prototype | Research and educational use only"
        )

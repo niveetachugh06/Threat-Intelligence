@@ -346,4 +346,3 @@ st.caption(
     "CyberScope prototype | Research and educational use only"
 )
 
-)

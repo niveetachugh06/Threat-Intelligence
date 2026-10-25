@@ -168,6 +168,6 @@ if st.button("🔍 Analyze Text", type="primary"):
            st.error(str(error))
 
 st.divider()
- st.caption(
+st.caption(
            "CyberScope prototype | Research and educational use only"
        )

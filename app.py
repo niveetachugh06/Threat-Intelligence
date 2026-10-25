@@ -167,28 +167,7 @@ if st.button("🔍 Analyze Text", type="primary"):
         except ValueError as error:
            st.error(str(error))
 
-       # ML-based CTI relevance analysis
-       cti_model = load_cti_model()
-
-       if cti_model is not None:
-           st.subheader("🧠 ML-Based CTI Relevance")
-
-           sentences = [
-               sentence.strip()
-               for sentence in re.split(
-                   r"(?<=[.!?])\s+|\n+",
-                   text_input
-               )
-               if len(sentence.strip()) >= 10
-           ]
-
-           if sentences:
-               predictions = cti_model.predict(sentences)
-
-               for sentence, prediction in zip(sentences, predictions):
-                   st.write(f"**Prediction: {prediction}** — {sentence}")
-
- st.divider()
+st.divider()
  st.caption(
            "CyberScope prototype | Research and educational use only"
        )

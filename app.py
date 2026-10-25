@@ -269,7 +269,81 @@ if st.button("🔍 Analyze Text", type="primary"):
             )
 
 
+
+# ==========================================
+# ML MODEL COMPARISON — 5-FOLD CROSS-VALIDATION
+# Results recorded from the Google Colab notebook
+# ==========================================
+
+import pandas as pd
+
 st.divider()
+
+st.header("📊 Machine Learning Model Comparison")
+st.write(
+    "Comparison of Logistic Regression, Linear SVM, "
+    "and Random Forest using 5-fold cross-validation."
+)
+
+comparison_data = pd.DataFrame({
+    "Classifier": [
+        "Logistic Regression",
+        "Linear SVM",
+        "Random Forest",
+    ],
+    "Accuracy": [98.4967, 98.6538, 97.2627],
+    "Precision": [95.0764, 97.6950, 95.4198],
+    "Recall": [93.6455, 92.1405, 83.6120],
+    "F1-score": [94.3555, 94.8365, 89.1266],
+})
+
+st.subheader("Performance Metrics (%)")
+
+chart_data = comparison_data.set_index("Classifier")[
+    ["Accuracy", "Precision", "Recall", "F1-score"]
+]
+
+st.bar_chart(chart_data, y=[
+    "Accuracy", "Precision", "Recall", "F1-score"
+])
+
+st.caption(
+    "Scores are percentages from 5-fold cross-validation "
+    "on the training partition. Precision, recall, and "
+    "F1-score refer to the phishing class."
+)
+
+st.subheader("Exact Comparison Results")
+
+st.dataframe(
+    comparison_data,
+    hide_index=True,
+    use_container_width=True,
+    column_config={
+        "Accuracy": st.column_config.NumberColumn(
+            format="%.2f%%"
+        ),
+        "Precision": st.column_config.NumberColumn(
+            format="%.2f%%"
+        ),
+        "Recall": st.column_config.NumberColumn(
+            format="%.2f%%"
+        ),
+        "F1-score": st.column_config.NumberColumn(
+            format="%.2f%%"
+        ),
+    },
+)
+
+st.info(
+    "Linear SVM achieved the highest cross-validation "
+    "F1-score among these three classifiers. These results "
+    "are benchmark results from the notebook, not a live "
+    "retraining of the models inside this web app."
+)
+
 st.caption(
     "CyberScope prototype | Research and educational use only"
+)
+
 )

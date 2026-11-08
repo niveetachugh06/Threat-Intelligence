@@ -3,11 +3,11 @@
 
 CyberScope is a beginner-friendly cybersecurity prototype that extracts potential Indicators of Compromise (IOCs) from security reports, suspicious messages, and threat-related text.
 
-## 🎯 Project Objective
+##  Project Objective
 
 The goal of CyberScope is to make it easier to identify potentially useful security indicators in unstructured text so that they can be investigated further.
 
-## ✨ Features
+##  Features
 
 - **IP address extraction:** Identifies valid IPv4 addresses.
 - **URL extraction:** Finds URLs and web addresses.
@@ -17,14 +17,14 @@ The goal of CyberScope is to make it easier to identify potentially useful secur
 - **Report download:** Allows users to download the analysis results as a text file.
 - **Interactive interface:** Built with Streamlit.
 
-## 🧰 Technology Stack
+##  Technology Stack
 
 - Python
 - Streamlit
 - Regular expressions
 - Python `ipaddress` and `urllib.parse` standard-library modules
 
-## 🚀 Run Locally
+##  Run Locally
 
 1. Clone this repository:
 
@@ -54,7 +54,7 @@ The goal of CyberScope is to make it easier to identify potentially useful secur
 
 Replace `YOUR-USERNAME` with your GitHub username.
 
-## 🔍 How It Works
+##  How It Works
 
 1. The user pastes a threat report, security alert, or suspicious text.
 2. CyberScope scans the text using pattern matching and regular expressions.
@@ -62,13 +62,13 @@ Replace `YOUR-USERNAME` with your GitHub username.
 4. The results are displayed by category.
 5. The user can download a text report for further investigation.
 
-## ⚠️ Limitations
+##  Limitations
 
 CyberScope is an experimental prototype. It extracts indicators but does not independently confirm whether they are malicious, check their reputation, validate vulnerability exploitability, or detect every cyberattack.
 
 Always investigate extracted indicators using trusted security tools and sources before taking action.
 
-## 🗺️ Future Improvements
+##  Future Improvements
 
 - Integrate trusted threat-intelligence feeds.
 - Add reputation checks for extracted indicators.
@@ -79,11 +79,11 @@ Always investigate extracted indicators using trusted security tools and sources
 
 These are proposed future enhancements, not features currently implemented.
 
-## 🔐 Responsible Use
+##  Responsible Use
 
 Use CyberScope for educational purposes and authorized defensive security research. Avoid submitting confidential logs, credentials, personal data, or sensitive organizational information to an online deployment.
 
-## 📌 Project Status
+##  Project Status
 
 **Status:** Initial prototype
 
